@@ -1,8 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Theme;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whatsapp_clone_flutter/auth/auth_repository.dart';
 import 'package:whatsapp_clone_flutter/auth/auth_storage.dart';
 import 'package:whatsapp_clone_flutter/core/locator/get_it.dart';
+
+import 'core/theme/theme.dart';
 
 import 'router/route_generator.dart';
 
@@ -28,9 +30,9 @@ class MyApp extends StatelessWidget {
       create: (_) => AuthReposoitory(navigatorKey: getIt(), storage: getIt(), http: getIt()),
       child: MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: Theme.light,
+        darkTheme: Theme.dark,
+        themeMode: ThemeMode.dark,
         navigatorKey: getIt<GlobalKey<NavigatorState>>(),
         debugShowCheckedModeBanner: false,
         initialRoute: initialRoute,

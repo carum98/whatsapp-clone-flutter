@@ -17,24 +17,14 @@ class AuthReposoitory {
       data: {'email': email, 'password': password},
     );
 
-    final token = data?['token'];
+    await storage.setToken(data?['token']);
 
-    await storage.setToken(token);
-
-    toMain();
+    navigatorKey.currentState?.pushReplacementNamed(MAIN_PAGE);
   }
 
   void logout() async {
     await storage.removeToken();
 
-    toLogin();
-  }
-
-  void toLogin() {
     navigatorKey.currentState?.pushReplacementNamed(LOGIN_PAGE);
-  }
-
-  void toMain() {
-    navigatorKey.currentState?.pushReplacementNamed(MAIN_PAGE);
   }
 }

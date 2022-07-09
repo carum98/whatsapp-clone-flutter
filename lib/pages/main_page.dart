@@ -1,23 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:whatsapp_clone_flutter/auth/auth_repository.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text('Main Page'),
-            ElevatedButton(
-              onPressed: () => context.read<AuthReposoitory>().logout(),
-              child: const Text('Logout'),
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('WhatsApp Clone'),
+          centerTitle: false,
+          bottom: const TabBar(
+            tabs: [
+              Tab(text: 'CHATS'),
+              Tab(text: 'STATUS'),
+              Tab(text: 'CALLS'),
+            ],
+            indicatorWeight: 3,
+          ),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: const Icon(Icons.more_vert),
+              onPressed: () {},
             ),
           ],
+        ),
+        body: const TabBarView(
+          children: [
+            Icon(Icons.directions_car),
+            Icon(Icons.directions_transit),
+            Icon(Icons.directions_bike),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => {},
+          backgroundColor: const Color(0xFF09a784),
+          child: const Icon(Icons.message, color: Colors.white),
         ),
       ),
     );
