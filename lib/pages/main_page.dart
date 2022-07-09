@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whatsapp_clone_flutter/auth/auth_repository.dart';
 
 class MainPage extends StatelessWidget {
@@ -13,7 +14,7 @@ class MainPage extends StatelessWidget {
           children: [
             const Text('Main Page'),
             ElevatedButton(
-              onPressed: () => AuthReposoitory(context).logout(),
+              onPressed: () => context.read<AuthReposoitory>().logout(),
               child: const Text('Logout'),
             ),
           ],
