@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whatsapp_clone_flutter/ui/chats/list_chats.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -32,7 +33,7 @@ class MainPage extends StatelessWidget {
         ),
         body: const TabBarView(
           children: [
-            Icon(Icons.directions_car),
+            ListChats(),
             Icon(Icons.directions_transit),
             Icon(Icons.directions_bike),
           ],

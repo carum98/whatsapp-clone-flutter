@@ -10,4 +10,13 @@ class HttpInterceptor extends Interceptor {
     options.headers['Authorization'] = await storage.getToken();
     super.onRequest(options, handler);
   }
+
+  @override
+  void onError(DioError err, ErrorInterceptorHandler handler) async {
+    if (err.response?.statusCode == 401) {
+      await storage.removeToken();
+    }
+
+    super.onError(err, handler);
+  }
 }
