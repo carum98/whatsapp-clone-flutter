@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whatsapp_clone_flutter/core/locator/get_it.dart';
+import 'package:whatsapp_clone_flutter/core/sockets/updates_socket.dart';
 import 'package:whatsapp_clone_flutter/repository/chats_repository.dart';
 import 'package:whatsapp_clone_flutter/ui/chats/tile_chat.dart';
 
@@ -12,7 +13,7 @@ class ListChats extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => ChatsBloc(ChatRepository(getIt())),
+      create: (_) => ChatsBloc(ChatRepository(getIt()), UpdatesSocket(getIt())),
       child: const _List(),
     );
   }
