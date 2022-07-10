@@ -2,6 +2,8 @@ import 'package:flutter/painting.dart' show Color;
 
 abstract class ThemeColorsDark {
   static const Color bgColor = Color(0xFF111c21);
+  static const Color bgConversationColor = Color(0xFF0b131b);
+
   static const Color fontColor = Color(0xFFe9edef);
   static const Color headerColor = Color(0xFF202c33);
 
@@ -13,6 +15,8 @@ abstract class ThemeColorsDark {
 
 abstract class ThemeColorsLight {
   static const Color bgColor = Color(0xFFffffff);
+  static const Color bgConversationColor = Color(0xFFdfdfdd);
+
   static const Color fontColor = Color(0xFF121416);
   static const Color headerColor = Color(0xFF015d4b);
 
