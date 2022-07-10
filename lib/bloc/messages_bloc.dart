@@ -13,12 +13,13 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
   final ConversationRepository _conversationRepository;
 
   MessagesBloc(this._conversationRepository) : super(MessagesInitial()) {
-    on<MessagesEvent>(_fetchMessages);
+    on<MessagesFetch>(_fetchMessages);
+    on<MessagesAdd>(_addMessage);
   }
 
   Chat get currentChat => _conversationRepository.chat;
 
-  Future<void> _fetchMessages(MessagesEvent event, Emitter<MessagesState> emit) async {
+  Future<void> _fetchMessages(MessagesFetch event, Emitter<MessagesState> emit) async {
     try {
       emit(MessagesLoading());
 
@@ -29,6 +30,14 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
       } else {
         emit(MessagesLoaded(messages));
       }
+    } catch (e) {
+      emit(MessagesError());
+    }
+  }
+
+  Future<void> _addMessage(MessagesAdd event, Emitter<MessagesState> emit) async {
+    try {
+      emit((state as MessagesLoaded).addMessage(event.message));
     } catch (e) {
       emit(MessagesError());
     }

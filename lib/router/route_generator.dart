@@ -20,17 +20,16 @@ class RouteGenerator {
       case CONVERSATION_PAGE:
         final Chat chat = settings.arguments as Chat;
 
-        final repo = ConversationRepository(
-          http: getIt(),
-          chat: chat,
-        );
-
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => MessagesBloc(repo),
-            child: const ConversationPage(),
+          builder: (_) => RepositoryProvider(
+            create: (_) => ConversationRepository(http: getIt(), chat: chat),
+            child: BlocProvider(
+              create: (context) => MessagesBloc(context.read<ConversationRepository>()),
+              child: const ConversationPage(),
+            ),
           ),
         );
+
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(

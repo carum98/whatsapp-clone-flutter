@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:whatsapp_clone_flutter/bloc/messages_bloc.dart';
+import 'package:whatsapp_clone_flutter/repository/conversation_repository.dart';
 
 class InputMessage extends StatelessWidget {
   const InputMessage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String message = '';
+    final textController = TextEditingController();
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -23,14 +29,16 @@ class InputMessage extends StatelessWidget {
                   icon: const Icon(Icons.sentiment_very_satisfied_rounded, size: 18),
                   visualDensity: VisualDensity.compact,
                 ),
-                const Expanded(
+                Expanded(
                   child: TextField(
-                    decoration: InputDecoration(
+                    controller: textController,
+                    decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Type a message',
                       contentPadding: EdgeInsets.all(0),
                       isDense: true,
                     ),
+                    onChanged: (value) => message = value,
                   ),
                 ),
                 IconButton(
@@ -48,14 +56,23 @@ class InputMessage extends StatelessWidget {
           ),
         ),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            context.read<ConversationRepository>().sendMessage(message).then((value) {
+              if (value != null) {
+                context.read<MessagesBloc>().add(MessagesAdd(value));
+
+                textController.clear();
+                message = '';
+              }
+            });
+          },
           style: ElevatedButton.styleFrom(
             shape: const CircleBorder(),
             primary: const Color(0xFF09a784),
             padding: const EdgeInsets.all(8),
           ),
           child: const Icon(
-            Icons.mic,
+            Icons.send,
             color: Colors.white,
             size: 25,
           ),

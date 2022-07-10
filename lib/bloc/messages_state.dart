@@ -11,6 +11,10 @@ class MessagesLoaded extends MessagesState {
   final List<Message> messages;
 
   MessagesLoaded(this.messages);
+
+  MessagesLoaded addMessage(Message message) => MessagesLoaded(
+        [message, ...messages],
+      );
 }
 
 class MessagesError extends MessagesState {}

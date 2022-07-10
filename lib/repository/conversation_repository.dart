@@ -19,4 +19,18 @@ class ConversationRepository {
 
     return data ?? [];
   }
+
+  Future<Message?> sendMessage(String message) async {
+    final data = await http.response<Message>(
+      url: '/messages',
+      method: Method.post,
+      data: {
+        'content': message,
+        'chat_id': chat.id,
+      },
+      mapper: (json) => Message.fromJson(json['data']),
+    );
+
+    return data;
+  }
 }

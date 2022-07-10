@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:whatsapp_clone_flutter/bloc/messages_bloc.dart';
+import 'package:whatsapp_clone_flutter/repository/conversation_repository.dart';
 import 'package:whatsapp_clone_flutter/widgets/avatar_image.dart';
 
 class ConversationAppBar extends StatelessWidget with PreferredSizeWidget {
@@ -11,7 +11,7 @@ class ConversationAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final chat = context.read<MessagesBloc>().currentChat;
+    final chat = context.read<ConversationRepository>().chat;
 
     return AppBar(
       leadingWidth: 30,
