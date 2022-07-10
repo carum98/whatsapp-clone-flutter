@@ -59,8 +59,6 @@ class InputMessage extends StatelessWidget {
           onPressed: () {
             context.read<ConversationRepository>().sendMessage(message).then((value) {
               if (value != null) {
-                context.read<MessagesBloc>().add(MessagesAdd(value));
-
                 textController.clear();
                 message = '';
               }

@@ -9,7 +9,7 @@ class UpdatesSocket {
 
   late IO.Socket _socket;
 
-  Future<IO.Socket> connect() async {
+  Future<void> connect() async {
     final token = await storage.getToken();
 
     _socket = IO.io('${AppConfig.baseUrl}/updates', {
@@ -18,8 +18,14 @@ class UpdatesSocket {
     });
 
     _socket.onConnect((data) => print('Connected'));
+  }
 
-    return _socket;
+  void emit(String event, [dynamic data]) {
+    _socket.emit(event, data);
+  }
+
+  void on(String event, Function(dynamic) callback) {
+    _socket.on(event, callback);
   }
 
   void disconnect() {

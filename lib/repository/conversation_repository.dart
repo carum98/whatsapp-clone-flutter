@@ -33,4 +33,13 @@ class ConversationRepository {
 
     return data;
   }
+
+  Future<Message?> getMessage(String id) async {
+    final data = await http.response<Message>(
+      url: '/messages/$id',
+      mapper: (json) => Message.fromJson(json['data']),
+    );
+
+    return data;
+  }
 }

@@ -14,7 +14,19 @@ class TileChat extends StatelessWidget {
     return ListTile(
       leading: AvatarImage(path: chat.avatar),
       title: Text(chat.name),
-      subtitle: Text(chat.message.content),
+      subtitle: Row(
+        children: [
+          if (chat.message.isMine) ...[
+            Icon(
+              Icons.done_all_outlined,
+              size: 13,
+              color: chat.message.isRead ? const Color.fromARGB(255, 33, 219, 243) : Colors.grey,
+            ),
+            const SizedBox(width: 5),
+          ],
+          Text(chat.message.content),
+        ],
+      ),
       trailing: Text(
         DateFormat('h:mm a').format(chat.message.date),
         style: const TextStyle(fontSize: 12),
