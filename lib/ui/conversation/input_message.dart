@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:whatsapp_clone_flutter/bloc/messages_bloc.dart';
-import 'package:whatsapp_clone_flutter/repository/conversation_repository.dart';
 
 class InputMessage extends StatelessWidget {
-  const InputMessage({Key? key}) : super(key: key);
+  final TextEditingController textController;
+  final VoidCallback onSend;
+  const InputMessage({Key? key, required this.textController, required this.onSend})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String message = '';
-    final textController = TextEditingController();
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -38,7 +35,6 @@ class InputMessage extends StatelessWidget {
                       contentPadding: EdgeInsets.all(0),
                       isDense: true,
                     ),
-                    onChanged: (value) => message = value,
                   ),
                 ),
                 IconButton(
@@ -56,14 +52,7 @@ class InputMessage extends StatelessWidget {
           ),
         ),
         ElevatedButton(
-          onPressed: () {
-            context.read<ConversationRepository>().sendMessage(message).then((value) {
-              if (value != null) {
-                textController.clear();
-                message = '';
-              }
-            });
-          },
+          onPressed: onSend,
           style: ElevatedButton.styleFrom(
             shape: const CircleBorder(),
             primary: const Color(0xFF09a784),

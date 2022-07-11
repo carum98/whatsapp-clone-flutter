@@ -25,6 +25,8 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
     _setup();
   }
 
+  Chat get currentChat => _conversationRepository.chat;
+
   Future<void> _setup() async {
     await _socket.connect();
 
@@ -36,8 +38,6 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
       add(MessagesReadMessages.fromSocket(payload));
     });
   }
-
-  Chat get currentChat => _conversationRepository.chat;
 
   Future<void> _fetchMessages(MessagesFetch event, Emitter<MessagesState> emit) async {
     try {

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, library_prefixes
+
 import 'package:whatsapp_clone_flutter/auth/auth_storage.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:whatsapp_clone_flutter/core/app_config.dart';
