@@ -3,7 +3,7 @@ class Message {
   final String content;
   final bool isMine;
   final bool isRead;
-  final DateTime date;
+  final DateTime? date;
 
   Message({
     required this.id,
@@ -39,13 +39,13 @@ class Message {
     };
   }
 
-  factory Message.fromJson(Map<String, dynamic> map) {
+  factory Message.fromJson(Map<String, dynamic>? map) {
     return Message(
-      id: map['id'] ?? '',
-      content: map['content'] ?? '',
-      isMine: map['isMine'] ?? false,
-      isRead: map['isRead'] ?? false,
-      date: DateTime.parse(map['createdAt'] ?? '').toLocal(),
+      id: map?['id'] ?? '',
+      content: map?['content'] ?? '',
+      isMine: map?['isMine'] ?? false,
+      isRead: map?['isRead'] ?? false,
+      date: map?['createdAt'] != null ? DateTime.parse(map?['createdAt'] ?? '').toLocal() : null,
     );
   }
 

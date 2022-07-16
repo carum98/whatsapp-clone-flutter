@@ -28,7 +28,7 @@ class TileChat extends StatelessWidget {
         ],
       ),
       trailing: Text(
-        DateFormat('h:mm a').format(chat.message.date),
+        chat.message.date != null ? DateFormat('h:mm a').format(chat.message.date!) : '',
         style: const TextStyle(fontSize: 12),
       ),
       onTap: () => Navigator.pushNamed(context, CONVERSATION_PAGE, arguments: chat),

@@ -28,7 +28,7 @@ class TileMessage extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                DateFormat('h:mm a').format(message.date),
+                message.date != null ? DateFormat('h:mm a').format(message.date!) : '',
                 style: const TextStyle(fontSize: 10, color: Colors.grey),
               ),
               if (message.isMine) ...[

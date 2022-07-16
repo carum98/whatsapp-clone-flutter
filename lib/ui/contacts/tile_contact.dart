@@ -4,7 +4,8 @@ import 'package:whatsapp_clone_flutter/widgets/avatar_image.dart';
 
 class TileContact extends StatelessWidget {
   final Contact contact;
-  const TileContact({Key? key, required this.contact}) : super(key: key);
+  final VoidCallback onTap;
+  const TileContact({Key? key, required this.contact, required this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +13,7 @@ class TileContact extends StatelessWidget {
       leading: AvatarImage(path: contact.avatar),
       title: Text(contact.name),
       subtitle: Text(contact.number),
+      onTap: onTap,
     );
   }
 }

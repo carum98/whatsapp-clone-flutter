@@ -1,4 +1,5 @@
 import 'package:whatsapp_clone_flutter/core/network/client_http.dart';
+import 'package:whatsapp_clone_flutter/models/chats_model.dart';
 import 'package:whatsapp_clone_flutter/models/contact_model.dart';
 
 class ContactsRepository {
@@ -16,5 +17,20 @@ class ContactsRepository {
     );
 
     return data ?? [];
+  }
+
+  Future<Chat?> getChat(Contact contact) async {
+    final data = await http.response<Chat>(
+      method: Method.post,
+      url: '/chats',
+      data: {
+        'number': contact.number,
+      },
+      mapper: (json) {
+        return Chat.fromJson(json['data']);
+      },
+    );
+
+    return data;
   }
 }

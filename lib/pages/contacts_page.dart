@@ -9,6 +9,11 @@ class ContactsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void openChat(Contact contact) {
+      context.read<ContactsRepository>().getChat(contact).then(
+          (chat) => Navigator.pushReplacementNamed(context, '/conversation', arguments: chat));
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Contacts'),
@@ -34,7 +39,10 @@ class ContactsPage extends StatelessWidget {
             itemBuilder: (_, index) {
               final contact = contacts![index];
 
-              return TileContact(contact: contact);
+              return TileContact(
+                contact: contact,
+                onTap: () => openChat(contact),
+              );
             },
           );
         },
