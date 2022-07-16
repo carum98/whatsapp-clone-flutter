@@ -4,9 +4,11 @@ import 'package:whatsapp_clone_flutter/bloc/messages_bloc.dart';
 import 'package:whatsapp_clone_flutter/core/locator/get_it.dart';
 import 'package:whatsapp_clone_flutter/core/sockets/chats_socket.dart';
 import 'package:whatsapp_clone_flutter/models/chats_model.dart';
+import 'package:whatsapp_clone_flutter/repository/contacts_repository.dart';
 import 'package:whatsapp_clone_flutter/repository/conversation_repository.dart';
 import 'package:whatsapp_clone_flutter/router/route_names.dart';
 
+import '../pages/contacts_page.dart';
 import '../pages/conversation_page.dart';
 import '../pages/login_page.dart';
 import '../pages/main_page.dart';
@@ -31,6 +33,14 @@ class RouteGenerator {
               ),
               child: const ConversationPage(),
             ),
+          ),
+        );
+
+      case CONTACTS_PAGE:
+        return MaterialPageRoute(
+          builder: (_) => RepositoryProvider(
+            create: (_) => ContactsRepository(getIt()),
+            child: const ContactsPage(),
           ),
         );
 

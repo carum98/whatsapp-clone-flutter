@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whatsapp_clone_flutter/router/route_names.dart';
 import 'package:whatsapp_clone_flutter/ui/chats/list_chats.dart';
 
 class MainPage extends StatelessWidget {
@@ -39,7 +40,7 @@ class MainPage extends StatelessWidget {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => {},
+          onPressed: () => Navigator.pushNamed(context, CONTACTS_PAGE),
           backgroundColor: const Color(0xFF09a784),
           child: const Icon(Icons.message, color: Colors.white),
         ),

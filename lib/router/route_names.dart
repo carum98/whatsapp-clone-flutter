@@ -3,3 +3,5 @@
 const MAIN_PAGE = '/';
 const LOGIN_PAGE = '/login';
 const CONVERSATION_PAGE = '/conversation';
+
+const CONTACTS_PAGE = '/contacts';
