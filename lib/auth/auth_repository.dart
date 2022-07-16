@@ -25,6 +25,32 @@ class AuthReposoitory {
   void logout() async {
     await storage.removeToken();
 
-    navigatorKey.currentState?.pushReplacementNamed(LOGIN_PAGE);
+    navigatorKey.currentState?.pushReplacementNamed(LANDING_PAGE);
+  }
+
+  void register({
+    required String email,
+    required String password,
+    required String name,
+    required String phone,
+  }) async {
+    final data = await http.response<Map<String, dynamic>>(
+      url: '/register',
+      method: Method.post,
+      data: {
+        'name': name,
+        'email': email,
+        'number': phone,
+        'password': password,
+      },
+    );
+
+    await storage.setToken(data?['token']);
+
+    navigatorKey.currentState?.pushReplacementNamed(MAIN_PAGE);
+  }
+
+  void demo() async {
+    login(email: 'maria@gmail.com', password: '12345');
   }
 }

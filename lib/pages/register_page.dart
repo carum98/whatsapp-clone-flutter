@@ -3,24 +3,34 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whatsapp_clone_flutter/auth/auth_repository.dart';
 import 'package:whatsapp_clone_flutter/widgets/input_text_filed.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class RegisterPage extends StatelessWidget {
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String email = '', password = '';
+    String email = '', password = '', name = '', phone = '';
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: const Text('Register'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(35),
         child: Column(
           children: [
             InputTextField(
+              label: 'Name',
+              onChanged: (value) => name = value,
+            ),
+            const SizedBox(height: 20),
+            InputTextField(
               label: 'Email',
               onChanged: (value) => email = value,
+            ),
+            const SizedBox(height: 20),
+            InputTextField(
+              label: 'Phone',
+              onChanged: (value) => phone = value,
             ),
             const SizedBox(height: 20),
             InputTextField(
@@ -31,9 +41,11 @@ class LoginPage extends StatelessWidget {
             const Spacer(),
             ElevatedButton(
               onPressed: () {
-                context.read<AuthReposoitory>().login(email: email, password: password);
+                context
+                    .read<AuthReposoitory>()
+                    .register(email: email, password: password, name: name, phone: phone);
               },
-              child: const Text('Login'),
+              child: const Text('Register'),
             ),
           ],
         ),

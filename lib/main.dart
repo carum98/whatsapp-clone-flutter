@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whatsapp_clone_flutter/auth/auth_repository.dart';
 import 'package:whatsapp_clone_flutter/auth/auth_storage.dart';
 import 'package:whatsapp_clone_flutter/core/locator/get_it.dart';
+import 'package:whatsapp_clone_flutter/router/route_names.dart';
 
 import 'core/theme/theme.dart';
 
@@ -16,7 +17,7 @@ void main() async {
   setupLocator();
 
   runApp(MyApp(
-    initialRoute: isAuthenticated ? '/' : '/login',
+    initialRoute: isAuthenticated ? MAIN_PAGE : LANDING_PAGE,
   ));
 }
 

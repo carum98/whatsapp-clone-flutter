@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:whatsapp_clone_flutter/auth/auth_repository.dart';
 import 'package:whatsapp_clone_flutter/router/route_names.dart';
 import 'package:whatsapp_clone_flutter/ui/chats/list_chats.dart';
 
@@ -26,10 +28,23 @@ class MainPage extends StatelessWidget {
               icon: const Icon(Icons.search),
               onPressed: () {},
             ),
-            IconButton(
-              icon: const Icon(Icons.more_vert),
-              onPressed: () {},
-            ),
+            PopupMenuButton(
+              icon: const Icon(Icons.more_vert, color: Colors.white),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
+              itemBuilder: (context) => [
+                const PopupMenuItem(
+                  value: 'logout',
+                  child: Text('Logout'),
+                ),
+              ],
+              onSelected: (value) {
+                if (value == 'logout') {
+                  context.read<AuthReposoitory>().logout();
+                }
+              },
+            )
           ],
         ),
         body: const TabBarView(

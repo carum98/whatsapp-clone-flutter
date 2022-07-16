@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart'
-    show ThemeData, Brightness, AppBarTheme, TabBarTheme, Colors, ColorScheme;
+import 'package:flutter/material.dart';
 import 'package:whatsapp_clone_flutter/core/theme/colors.dart';
 
 class Theme {
@@ -19,6 +18,11 @@ class Theme {
       secondaryContainer: ThemeColorsLight.bgMessageOut,
       background: ThemeColorsLight.bgConversationColor,
     ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        primary: const Color(0xFF09a784),
+      ),
+    ),
   );
 
   static ThemeData dark = ThemeData(
@@ -37,6 +41,11 @@ class Theme {
       primaryContainer: ThemeColorsDark.bgMessageIn,
       secondaryContainer: ThemeColorsDark.bgMessageOut,
       background: ThemeColorsDark.bgConversationColor,
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        primary: const Color(0xFF09a784),
+      ),
     ),
   );
 }
