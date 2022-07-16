@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:whatsapp_clone_flutter/widgets/svg_icon.dart';
 
 class Emoji {

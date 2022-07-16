@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 
+enum PickerType { emoji, file, keyboard }
+
 class InputMessage extends StatelessWidget {
   final TextEditingController textController;
+  final FocusNode focusNode;
+  final Function(PickerType) onPickerSelected;
   final VoidCallback onSend;
-  const InputMessage({Key? key, required this.textController, required this.onSend})
-      : super(key: key);
+
+  const InputMessage({
+    Key? key,
+    required this.textController,
+    required this.focusNode,
+    required this.onPickerSelected,
+    required this.onSend,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +31,17 @@ class InputMessage extends StatelessWidget {
             ),
             child: Row(
               children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.sentiment_very_satisfied_rounded, size: 18),
-                  visualDensity: VisualDensity.compact,
+                _IconToggle(
+                  icon1: Icons.sentiment_very_satisfied_rounded,
+                  icon2: Icons.keyboard,
+                  onToggle: (value) {
+                    onPickerSelected(value ? PickerType.keyboard : PickerType.emoji);
+                  },
                 ),
                 Expanded(
                   child: TextField(
                     controller: textController,
+                    focusNode: focusNode,
                     decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Type a message',
@@ -37,10 +50,12 @@ class InputMessage extends StatelessWidget {
                     ),
                   ),
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.attach_file_rounded, size: 18),
-                  visualDensity: VisualDensity.compact,
+                _IconToggle(
+                  icon1: Icons.attach_file_rounded,
+                  icon2: Icons.keyboard,
+                  onToggle: (value) {
+                    onPickerSelected(value ? PickerType.keyboard : PickerType.file);
+                  },
                 ),
                 IconButton(
                   onPressed: () {},
@@ -65,6 +80,33 @@ class InputMessage extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _IconToggle extends StatefulWidget {
+  final IconData icon1;
+  final IconData icon2;
+  final Function(bool) onToggle;
+  const _IconToggle({Key? key, required this.icon1, required this.icon2, required this.onToggle})
+      : super(key: key);
+
+  @override
+  State<_IconToggle> createState() => __IconToggleState();
+}
+
+class __IconToggleState extends State<_IconToggle> {
+  bool _isSelected = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        setState(() => _isSelected = !_isSelected);
+        widget.onToggle(_isSelected);
+      },
+      icon: Icon(_isSelected ? widget.icon1 : widget.icon2, size: 18),
+      visualDensity: VisualDensity.compact,
     );
   }
 }
