@@ -2,9 +2,14 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthStorage {
   final storage = const FlutterSecureStorage();
+  String? _tokenCache;
+
+  get tokenCache => _tokenCache;
 
   Future<String?> getToken() async {
-    return await storage.read(key: 'token');
+    final token = await storage.read(key: 'token');
+    _tokenCache = token;
+    return token;
   }
 
   Future<void> setToken(String token) async {

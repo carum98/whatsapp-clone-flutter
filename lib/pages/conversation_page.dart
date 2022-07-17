@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:whatsapp_clone_flutter/cubit/status_chat_cubit.dart';
 import 'package:whatsapp_clone_flutter/repository/conversation_repository.dart';
 import 'package:whatsapp_clone_flutter/ui/conversation/conversation_appbar.dart';
 import 'package:whatsapp_clone_flutter/ui/conversation/conversation_panel.dart';
@@ -18,6 +19,7 @@ class ConversationPage extends StatelessWidget {
         image: const DecorationImage(
           image: AssetImage('assets/ws-bg.png'),
           opacity: 0.1,
+          fit: BoxFit.fill,
         ),
       ),
       child: Scaffold(
@@ -57,6 +59,10 @@ class __InputState extends State<_Input> {
 
     textController = TextEditingController();
     focusNode = FocusNode();
+
+    focusNode.addListener(() {
+      BlocProvider.of<StatusChatCubit>(context).typing();
+    });
   }
 
   @override

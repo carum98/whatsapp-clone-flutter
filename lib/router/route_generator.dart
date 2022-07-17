@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whatsapp_clone_flutter/bloc/messages_bloc.dart';
 import 'package:whatsapp_clone_flutter/core/locator/get_it.dart';
 import 'package:whatsapp_clone_flutter/core/sockets/chats_socket.dart';
+import 'package:whatsapp_clone_flutter/cubit/status_chat_cubit.dart';
 import 'package:whatsapp_clone_flutter/models/chats_model.dart';
 import 'package:whatsapp_clone_flutter/repository/contacts_repository.dart';
 import 'package:whatsapp_clone_flutter/repository/conversation_repository.dart';
@@ -32,14 +33,20 @@ class RouteGenerator {
       case CONVERSATION_PAGE:
         final Chat chat = settings.arguments as Chat;
 
+        final repo = ConversationRepository(http: getIt(), chat: chat);
+        final socket = ChatsSocket(storage: getIt(), chat: chat);
+
+        final bloc = MessagesBloc(repo, socket);
+        final cubit = StatusChatCubit(socket);
+
         return MaterialPageRoute(
           builder: (_) => RepositoryProvider(
-            create: (_) => ConversationRepository(http: getIt(), chat: chat),
-            child: BlocProvider(
-              create: (context) => MessagesBloc(
-                context.read<ConversationRepository>(),
-                ChatsSocket(storage: getIt(), chat: chat),
-              ),
+            create: (_) => repo,
+            child: MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (_) => bloc),
+                BlocProvider(create: (_) => cubit),
+              ],
               child: const ConversationPage(),
             ),
           ),

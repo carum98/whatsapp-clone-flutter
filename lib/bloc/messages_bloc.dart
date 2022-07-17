@@ -5,7 +5,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:whatsapp_clone_flutter/core/sockets/chats_socket.dart';
-import 'package:whatsapp_clone_flutter/models/chats_model.dart';
 import 'package:whatsapp_clone_flutter/models/message_model.dart';
 import 'package:whatsapp_clone_flutter/repository/conversation_repository.dart';
 
@@ -21,14 +20,6 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
     on<MessagesAdd>(_addMessage);
     on<MessagesGetMessage>(_getMessage);
     on<MessagesReadMessages>(_readMessages);
-
-    _setup();
-  }
-
-  Chat get currentChat => _conversationRepository.chat;
-
-  Future<void> _setup() async {
-    await _socket.connect();
 
     _socket.on('chat:message', (payload) {
       add(MessagesGetMessage.fromSocket(payload));
