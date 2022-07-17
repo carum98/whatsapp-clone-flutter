@@ -24,7 +24,7 @@ class ContactsRepository {
       method: Method.post,
       url: '/chats',
       data: {
-        'number': contact.number,
+        'user_id': contact.id,
       },
       mapper: (json) {
         return Chat.fromJson(json['data']);
