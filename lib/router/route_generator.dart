@@ -14,6 +14,7 @@ import '../pages/landing_page.dart';
 import '../pages/login_page.dart';
 import '../pages/main_page.dart';
 import '../pages/register_page.dart';
+import '../pages/scanner_page.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -26,6 +27,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const LoginPage());
       case REGISTER_PAGE:
         return MaterialPageRoute(builder: (_) => const RegisterPage());
+      case SCANNER_PAGE:
+        return MaterialPageRoute(builder: (_) => const ScannerPage());
       case CONVERSATION_PAGE:
         final Chat chat = settings.arguments as Chat;
 

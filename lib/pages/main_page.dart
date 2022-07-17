@@ -30,18 +30,22 @@ class MainPage extends StatelessWidget {
             ),
             PopupMenuButton(
               icon: const Icon(Icons.more_vert, color: Colors.white),
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-              ),
               itemBuilder: (context) => [
                 const PopupMenuItem(
                   value: 'logout',
                   child: Text('Logout'),
                 ),
+                const PopupMenuItem(
+                  value: 'scanner',
+                  child: Text('Login WEB'),
+                ),
               ],
               onSelected: (value) {
                 if (value == 'logout') {
                   context.read<AuthReposoitory>().logout();
+                }
+                if (value == 'scanner') {
+                  Navigator.pushNamed(context, SCANNER_PAGE);
                 }
               },
             )

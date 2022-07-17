@@ -6,6 +6,7 @@ const LANDING_PAGE = '/landing';
 
 const LOGIN_PAGE = '/login';
 const REGISTER_PAGE = '/register';
+const SCANNER_PAGE = '/scanner';
 
 const CONVERSATION_PAGE = '/conversation';
 

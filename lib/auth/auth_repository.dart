@@ -53,4 +53,12 @@ class AuthReposoitory {
   void demo() async {
     login(email: 'maria@gmail.com', password: '12345');
   }
+
+  void loginWithQrCode(String code) async {
+    await http.response<Map<String, dynamic>>(
+      url: '/qr/validate',
+      method: Method.post,
+      data: {'code': code},
+    );
+  }
 }
