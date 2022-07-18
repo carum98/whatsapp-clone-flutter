@@ -36,6 +36,10 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     _socket.on('updates:read', (payload) {
       add(ChatsReadMessages.fromSocket(payload));
     });
+
+    _socket.on('updates:chat', (payload) {
+      add(ChatsFetch());
+    });
   }
 
   Future<void> _fetchChats(ChatsFetch event, Emitter<ChatsState> emit) async {
@@ -55,6 +59,11 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
   }
 
   FutureOr<void> _updateMessage(ChatsUpdateMessage event, Emitter<ChatsState> emit) {
+    if (state is ChatsEmpty) {
+      add(ChatsFetch());
+      return Future.value();
+    }
+
     final loaded = state as ChatsLoaded;
 
     emit(ChatsLoaded(

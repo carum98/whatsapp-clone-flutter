@@ -48,6 +48,10 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
 
   Future<void> _addMessage(MessagesAdd event, Emitter<MessagesState> emit) async {
     try {
+      if (state is MessagesEmpty) {
+        emit(MessagesLoaded(const []));
+      }
+
       emit((state as MessagesLoaded).addMessage(event.message));
     } catch (e) {
       emit(MessagesError());
@@ -69,6 +73,10 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
   }
 
   FutureOr<void> _readMessages(MessagesReadMessages event, Emitter<MessagesState> emit) {
+    if (state is MessagesLoading) {
+      return Future.value();
+    }
+
     final loaded = state as MessagesLoaded;
 
     emit(MessagesLoaded(
