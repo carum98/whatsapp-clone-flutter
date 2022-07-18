@@ -60,7 +60,7 @@ class __ListState extends State<_List> {
 
         if (state is ChatsEmpty) {
           return const Center(
-            child: Text('Empty'),
+            child: Text('No chats'),
           );
         }
 

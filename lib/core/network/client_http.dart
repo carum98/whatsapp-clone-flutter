@@ -1,4 +1,9 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+// ignore: depend_on_referenced_packages
+import 'package:http_parser/http_parser.dart';
+
 import 'package:whatsapp_clone_flutter/core/app_config.dart';
 import 'package:whatsapp_clone_flutter/core/network/exceptions_http.dart';
 import 'package:whatsapp_clone_flutter/core/network/interceptor_http.dart';
@@ -32,6 +37,7 @@ class Http {
     required String url,
     Method method = Method.get,
     Map<String, dynamic>? data,
+    File? file,
     T Function(Map<String, dynamic>)? mapper,
   }) async {
     try {
@@ -39,6 +45,17 @@ class Http {
 
       if (method == Method.get) {
         response = await dio.get(url, queryParameters: data);
+      } else if (method == Method.post && file != null) {
+        response = await dio.post(
+          url,
+          data: FormData.fromMap({
+            ...data!,
+            'image': await MultipartFile.fromFile(
+              file.path,
+              contentType: MediaType('image', 'jpeg'),
+            ),
+          }),
+        );
       } else if (method == Method.post) {
         response = await dio.post(url, data: data);
       } else if (method == Method.put) {

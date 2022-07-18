@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:whatsapp_clone_flutter/auth/auth_storage.dart';
 import 'package:whatsapp_clone_flutter/core/network/client_http.dart';
@@ -33,6 +35,7 @@ class AuthReposoitory {
     required String password,
     required String name,
     required String phone,
+    required File? image,
   }) async {
     final data = await http.response<Map<String, dynamic>>(
       url: '/register',
@@ -43,6 +46,7 @@ class AuthReposoitory {
         'number': phone,
         'password': password,
       },
+      file: image,
     );
 
     await storage.setToken(data?['token']);
